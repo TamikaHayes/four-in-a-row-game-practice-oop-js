@@ -4,25 +4,19 @@ class Space {
         this.y = y;
         this.id = `space-${x}-${y}`;
         this.token = null;
+        this.diameter = 76;
+        this.radius = this.diameter/2;
     }
-/**
- * Generates 2D array of spaces.
- * @return  {array}     An array of space objectes
- */
-    createSpaces() {
-        const spaces = [];
 
-        for (let x = 0;  x < this.columns; x++) {
-            const column = [];
+    drawSVGSpace() {
+        const svgSpace = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        svgSpace.setAttributeNS(null, "id", this.id);
+        svgSpace.setAttributeNS(null, "cx", (this.x * this.diameter) + this.radius);
+        svgSpace.setAttributeNS(null, "cy", (this.y * this.diameter) + this.radius);
+        svgSpace.setAttributeNS(null, "r", this.radius - 8);
+        svgSpace.setAttributeNS(null, "fill", "black");
+        svgSpace.setAttributeNS(null, "stroke", "none");
 
-            for (let y = 0; y < this.rows; y++) {
-                const space = new Space(x,y);
-                column.push(space);
-            }
-
-            spaces.push(column);
-        }
-
-        return spaces;
+        document.getElementById("mask").appendChild(svgSpace); 
     }
 }
